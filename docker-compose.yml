@@ -1,0 +1,39 @@
+services:
+  neko:
+    image: "m1k1o/neko:firefox"
+    container_name: neko-personalizado
+    restart: "unless-stopped"
+    shm_size: "2gb"
+    ports:
+      - "8080:8080"
+      - "52000-52100:52000-52100/udp"
+    volumes:
+      - "./custom.html:/usr/share/neko/web/custom.html"
+      - "./neko-profile:/home/neko/.mozilla/firefox"
+      - "./neko-downloads:/home/neko/Downloads"
+    environment:
+      # Configuración de pantalla
+      NEKO_DESKTOP_SCREEN: 1920x1080@30
+      
+      # WebRTC
+      NEKO_WEBRTC_ICELITE: 1
+      NEKO_WEBRTC_EPR: 52000-52100
+      NEKO_NAT1TO1: 192.168.1.2
+      
+      # USUARIOS CONFIGURADOS
+      NEKO_MEMBER_PROVIDER: multiuser
+      NEKO_MEMBER_MULTIUSER_USER_PASSWORD: yokicsl
+      NEKO_MEMBER_MULTIUSER_ADMIN_PASSWORD: yokicsl
+      
+      # Mensaje personalizado
+      NEKO_CUSTOM_MESSAGE: "🎉 Los saluda Yokic - Bienvenido a Neko 🎉"
+      
+      # Página de inicio personalizada
+      NEKO_BROWSER_START_URL: "https://www.google.com"
+      
+      # Calidad óptima
+      NEKO_VIDEO_BITRATE: 2000
+      NEKO_FRAMERATE: 30
+      
+      # Control
+      NEKO_CONTROL_PROTECTION: 1
